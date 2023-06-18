@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Wind Turbine Energy Prediction</title>
+    <style>
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        th, td {
+            text-align: left;
+            padding: 8px;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+        footer {
+            position: fixed;
+            left: 0;
+            bottom: 0;
+            width: 100%;
+            background-color: #f2f2f2;
+            padding: 10px 0;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <h1>Wind Turbine Energy Prediction</h1>
+    <form action="/predict" method="POST">
+        <label for="wind_speed">Wind Speed (m/s):</label>
+        <input type="number" step="0.5" name="wind_speed" id="wind_speed" required><br><br>
+
+        <label for="wind_direction">Wind Direction (°):</label>
+        <input type="number" step="0.5" name="wind_direction" id="wind_direction" required><br><br>
+
+        <label for="month">Month:</label>
+        <select name="month" id="month" required>
+            <option value="1">January</option>
+            <option value="2">February</option>
+            <option value="3">March</option>
+            <option value="4">April</option>
+            <option value="5">May</option>
+            <option value="6">June</option>
+            <option value="7">July</option>
+            <option value="8">August</option>
+            <option value="9">September</option>
+            <option value="10">October</option>
+            <option value="11">November</option>
+            <option value="12">December</option>
+        </select><br><br>
+
+        <label for="day">Day:</label>
+        <select name="day" id="day" required>
+            <!-- Options for days -->
+            {% for day in range(1, 30) %}
+                <option value="{{ day }}">{{ day }}</option>
+            {% endfor %}
+        </select><br><br>
+
+        <label for="hour">Hour:</label>
+        <select name="hour" id="hour" required>
+            <!-- Options for hours -->
+            {% for hour in range(0, 24) %}
+                <option value="{{ "%02d"|format(hour) }}">{{ hour }}</option>
+            {% endfor %}
+        </select><br><br>
+
+        <input type="submit" value="Predict">
+    </form>
+
+    <h1>Prediction Results</h1>
+    <table>
+        <tr>
+            <th>Model</th>
+            <th>Predicted Active Power (kW)</th>
+            <th>Mean Squared Error</th>
+            <th>Mean Absolute Error</th>
+        </tr>
+        <tr>
+            <td>Linear Regression</td>
+            <td>{{ output1 }}</td>
+            <td>{{ detail1 }}</td>
+            <td>{{ detail4 }}</td>
+        </tr>
+        <tr>
+            <td>Random Forest</td>
+            <td>{{ output2 }}</td>
+            <td>{{ detail2 }}</td>
+            <td>{{ detail5 }}</td>
+        </tr>
+        <tr>
+            <td>XG Boost</td>
+            <td>{{ output3 }}</td>
+            <td>{{ detail3 }}</td>
+            <td>{{ detail6 }}</td>
+        </tr>
+    </table>
+    <footer>Created By Priyanshu Sharma</footer>
+</body>
+</html>
