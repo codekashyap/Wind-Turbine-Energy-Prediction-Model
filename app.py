@@ -18,11 +18,10 @@ def home():
 def pred():
     wind_speed = float(request.form['wind_speed'])
     wind_direction = float(request.form['wind_direction'])
-    month = int(request.form['month'])
-    day = int(request.form['day'])
-    hour = int(request.form['hour'])
-    final_features = [[wind_speed, wind_direction, month, day, hour]]
-    a = pd.DataFrame(final_features, columns=['Wind Speed (m/s)', 'Wind Direction (°)', 'MONTH', 'DAY', 'hour'])
+    theoretical_power_curve = float(request.form['theoretical_power_curve'])
+
+    final_features = [[wind_speed, wind_direction, theoretical_power_curve]]
+    a = pd.DataFrame(final_features, columns=['Wind Speed (m/s)', 'Wind Direction (°)', 'Theoretical Power Curve (KWh)'])
     prediction1 = model1.predict(final_features)
     prediction2 = model2.predict(final_features)
     prediction3 = model3.predict(a)
